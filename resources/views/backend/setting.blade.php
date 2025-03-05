@@ -3,21 +3,21 @@
 @section('main-content')
 
 <div class="card">
-    <h5 class="card-header">Edit Post</h5>
+    <h5 class="card-header">Edit Postingan</h5>
     <div class="card-body">
     <form method="post" action="{{route('settings.update')}}">
-        @csrf 
+        @csrf
         {{-- @method('PATCH') --}}
         {{-- {{dd($data)}} --}}
         <div class="form-group">
-          <label for="short_des" class="col-form-label">Short Description <span class="text-danger">*</span></label>
+          <label for="short_des" class="col-form-label">Deskripsi Singkat <span class="text-danger">*</span></label>
           <textarea class="form-control" id="quote" name="short_des">{{$data->short_des}}</textarea>
           @error('short_des')
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
         <div class="form-group">
-          <label for="description" class="col-form-label">Description <span class="text-danger">*</span></label>
+          <label for="description" class="col-form-label">Deskripsi <span class="text-danger">*</span></label>
           <textarea class="form-control" id="description" name="description">{{$data->description}}</textarea>
           @error('description')
           <span class="text-danger">{{$message}}</span>
@@ -28,8 +28,8 @@
           <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
+                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary text-white">
+                  <i class="fas fa-image"></i> Pilih
                   </a>
               </span>
           <input id="thumbnail1" class="form-control" type="text" name="logo" value="{{$data->logo}}">
@@ -42,11 +42,11 @@
         </div>
 
         <div class="form-group">
-          <label for="inputPhoto" class="col-form-label">Photo <span class="text-danger">*</span></label>
+          <label for="inputPhoto" class="col-form-label">Foto <span class="text-danger">*</span></label>
           <div class="input-group">
               <span class="input-group-btn">
-                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                  <i class="fa fa-picture-o"></i> Choose
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+                  <i class="fas fa-image"></i> Pilih
                   </a>
               </span>
           <input id="thumbnail" class="form-control" type="text" name="photo" value="{{$data->photo}}">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-group">
-          <label for="address" class="col-form-label">Address <span class="text-danger">*</span></label>
+          <label for="address" class="col-form-label">Alamat <span class="text-danger">*</span></label>
           <input type="text" class="form-control" name="address" required value="{{$data->address}}">
           @error('address')
           <span class="text-danger">{{$message}}</span>
@@ -73,7 +73,7 @@
           @enderror
         </div>
         <div class="form-group">
-          <label for="phone" class="col-form-label">Phone Number <span class="text-danger">*</span></label>
+          <label for="phone" class="col-form-label">Nomor HP <span class="text-danger">*</span></label>
           <input type="text" class="form-control" name="phone" required value="{{$data->phone}}">
           @error('phone')
           <span class="text-danger">{{$message}}</span>

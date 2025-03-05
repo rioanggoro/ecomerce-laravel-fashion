@@ -8,9 +8,9 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
+    <div class="card-header py-3 rounded-top">
       <h6 class="m-0 font-weight-bold text-primary float-left">Product Lists</h6>
-      <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Product</a>
+      <a href="{{route('product.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Tambah Produk"><i class="fas fa-plus"></i> Tambah Produk</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -19,37 +19,20 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Is Featured</th>
-              <th>Price</th>
-              <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
+              <th>Judul</th>
+              <th>Kategori</th>
+              <th>Tampil</th>
+              <th>Harga</th>
+              <th>Diskon</th>
+              <th>Ukuran</th>
+              <th>Kondisi</th>
               <th>Brand</th>
-              <th>Stock</th>
-              <th>Photo</th>
+              <th>Stok</th>
+              <th>Foto</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Category</th>
-              <th>Is Featured</th>
-              <th>Price</th>
-              <th>Discount</th>
-              <th>Size</th>
-              <th>Condition</th>
-              <th>Brand</th>
-              <th>Stock</th>
-              <th>Photo</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
           <tbody>
 
             @foreach($products as $product)
@@ -92,13 +75,13 @@
                     </td>
                     <td>
                         @if($product->status=='active')
-                            <span class="badge badge-success">{{$product->status}}</span>
+                            <span class="badge badge-success">Aktif</span>
                         @else
-                            <span class="badge badge-warning">{{$product->status}}</span>
+                            <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
+                        <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary btn-sm float-left mr-1 mb-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                     <form method="POST" action="{{route('product.destroy',[$product->id])}}">
                       @csrf
                       @method('delete')
@@ -111,7 +94,7 @@
         </table>
         <span style="float:right">{{$products->links()}}</span>
         @else
-          <h6 class="text-center">No Products found!!! Please create Product</h6>
+          <h6 class="text-center">Produk Tidak ditemukan!!! Mohon tambahkan Produk</h6>
         @endif
       </div>
     </div>
@@ -175,8 +158,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apakah anda yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -185,7 +168,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

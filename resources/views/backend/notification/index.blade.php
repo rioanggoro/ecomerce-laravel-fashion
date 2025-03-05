@@ -7,16 +7,16 @@
            @include('backend.layouts.notification')
         </div>
     </div>
-  <h5 class="card-header">Notifications</h5>
+  <h5 class="card-header">Notifikasi</h5>
   <div class="card-body">
     @if(count(Auth::user()->Notifications)>0)
     <table class="table  table-hover admin-table" id="notification-dataTable">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Time</th>
-          <th scope="col">Title</th>
-          <th scope="col">Action</th>
+          <th scope="col">No</th>
+          <th scope="col">Waktu</th>
+          <th scope="col">Judul</th>
+          <th scope="col">Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -40,7 +40,7 @@
       </tbody>
     </table>
     @else
-      <h2>Notifications Empty!</h2>
+      <h2>Notifikasi Kosong!</h2>
     @endif
   </div>
 </div>
@@ -87,8 +87,8 @@
             // alert(dataID);
             e.preventDefault();
             swal({
-                  title: "Are you sure?",
-                  text: "Once deleted, you will not be able to recover this data!",
+                  title: "Apa kamu yakin?",
+                  text: "Setelah dihapus, data tidak bisa dikembalikan!",
                   icon: "warning",
                   buttons: true,
                   dangerMode: true,
@@ -97,7 +97,7 @@
                   if (willDelete) {
                     form.submit();
                   } else {
-                      swal("Your data is safe!");
+                      swal("Data kamu aman!");
                   }
               });
         })
