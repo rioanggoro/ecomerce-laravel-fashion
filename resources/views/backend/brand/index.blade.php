@@ -8,9 +8,9 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Brand List</h6>
-      <a href="{{route('brand.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Brand</a>
+    <div class="card-header py-3 rounded-top">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Daftar Brand</h6>
+      <a href="{{route('brand.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Tambah Brand"><i class="fas fa-plus"></i> Tambah Brand</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -19,38 +19,29 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Title</th>
+              <th>Judul</th>
               <th>Slug</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Title</th>
-              <th>Slug</th>
-              <th>Status</th>
-              <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
-            @foreach($brands as $brand)   
+            @foreach($brands as $brand)
                 <tr>
                     <td>{{$brand->id}}</td>
                     <td>{{$brand->title}}</td>
                     <td>{{$brand->slug}}</td>
                     <td>
                         @if($brand->status=='active')
-                            <span class="badge badge-success">{{$brand->status}}</span>
+                            <span class="badge badge-success">Aktif</span>
                         @else
-                            <span class="badge badge-warning">{{$brand->status}}</span>
+                            <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
                         <a href="{{route('brand.edit',$brand->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="{{route('brand.destroy',[$brand->id])}}">
-                          @csrf 
+                          @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$brand->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
@@ -67,7 +58,7 @@
                             </div>
                             <div class="modal-body">
                               <form method="post" action="{{ route('banners.destroy',$user->id) }}">
-                                @csrf 
+                                @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
                               </form>
@@ -75,13 +66,13 @@
                           </div>
                         </div>
                     </div> --}}
-                </tr>  
+                </tr>
             @endforeach
           </tbody>
         </table>
         <span style="float:right">{{$brands->links()}}</span>
         @else
-          <h6 class="text-center">No brands found!!! Please create brand</h6>
+          <h6 class="text-center">Brand Belum Ada!!! Mohon tambahkan Brand</h6>
         @endif
       </div>
     </div>
@@ -115,7 +106,7 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-      
+
       $('#banner-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -128,7 +119,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>
@@ -144,8 +135,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apa kamu yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -154,7 +145,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

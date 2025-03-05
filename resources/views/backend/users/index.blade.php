@@ -8,7 +8,7 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
+    <div class="card-header py-3 rounded-top">
       <h6 class="m-0 font-weight-bold text-primary float-left">Daftar User</h6>
       <a href="{{route('users.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Tambah User"><i class="fas fa-plus"></i> Tambah User</a>
     </div>
@@ -45,9 +45,9 @@
                     <td>{{$user->role}}</td>
                     <td>
                         @if($user->status=='active')
-                            <span class="badge badge-success">{{$user->status}}</span>
+                            <span class="badge badge-success">Aktif</span>
                         @else
-                            <span class="badge badge-warning">{{$user->status}}</span>
+                            <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
@@ -82,7 +82,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$users->links()}}</span>
+        <span style="float:right;">{{$users->links()}}</span>
         @else
           <h6 class="text-center">User Belum Ada!!! Mohon tambahkan User</h6>
         @endif

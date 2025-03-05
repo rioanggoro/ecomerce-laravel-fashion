@@ -8,9 +8,9 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Coupon List</h6>
-      <a href="{{route('coupon.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Add Coupon</a>
+    <div class="card-header py-3 rounded-top">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Daftar Kupon</h6>
+      <a href="{{route('coupon.create')}}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom" title="Tambah Kupon"><i class="fas fa-plus"></i> Tambah Kupon</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -19,52 +19,42 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Coupon Code</th>
-              <th>Type</th>
-              <th>Value</th>
+              <th>Kode Kupon</th>
+              <th>Tipe</th>
+              <th>Nilai</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-                <th>S.N.</th>
-                <th>Coupon Code</th>
-                <th>Type</th>
-                <th>Value</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
-            @foreach($coupons as $coupon)   
+            @foreach($coupons as $coupon)
                 <tr>
                     <td>{{$coupon->id}}</td>
                     <td>{{$coupon->code}}</td>
                     <td>
                         @if($coupon->type=='fixed')
-                            <span class="badge badge-primary">{{$coupon->type}}</span>
+                            <span class="badge badge-primary">Tetap</span>
                         @else
-                            <span class="badge badge-warning">{{$coupon->type}}</span>
+                            <span class="badge badge-warning">Sementara</span>
                         @endif
                     </td>
                     <td>
                         @if($coupon->type=='fixed')
-                            ${{number_format($coupon->value,2)}}
+                            Rp{{number_format($coupon->value,2)}}
                         @else
                             {{$coupon->value}}%
                         @endif</td>
                     <td>
                         @if($coupon->status=='active')
-                            <span class="badge badge-success">{{$coupon->status}}</span>
+                            <span class="badge badge-success">Aktif</span>
                         @else
-                            <span class="badge badge-warning">{{$coupon->status}}</span>
+                            <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
                         <a href="{{route('coupon.edit',$coupon->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                         <form method="POST" action="{{route('coupon.destroy',[$coupon->id])}}">
-                          @csrf 
+                          @csrf
                           @method('delete')
                               <button class="btn btn-danger btn-sm dltBtn" data-id={{$coupon->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
                         </form>
@@ -81,7 +71,7 @@
                             </div>
                             <div class="modal-body">
                               <form method="post" action="{{ route('banners.destroy',$user->id) }}">
-                                @csrf 
+                                @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger" style="margin:auto; text-align:center">Parmanent delete user</button>
                               </form>
@@ -89,13 +79,13 @@
                           </div>
                         </div>
                     </div> --}}
-                </tr>  
+                </tr>
             @endforeach
           </tbody>
         </table>
         <span style="float:right">{{$coupons->links()}}</span>
         @else
-          <h6 class="text-center">No Coupon found!!! Please create coupon</h6>
+          <h6 class="text-center">Kupon Belum Ada!!! Mohon tambahkan Kupon</h6>
         @endif
       </div>
     </div>
@@ -129,7 +119,7 @@
   <!-- Page level custom scripts -->
   <script src="{{asset('backend/js/demo/datatables-demo.js')}}"></script>
   <script>
-      
+
       $('#banner-dataTable').DataTable( {
             "columnDefs":[
                 {
@@ -142,7 +132,7 @@
         // Sweet alert
 
         function deleteData(id){
-            
+
         }
   </script>
   <script>
@@ -158,8 +148,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apa kamu yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -168,7 +158,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

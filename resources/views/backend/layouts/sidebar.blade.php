@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary rounded-right sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="border-radius: 0px 15px 10px 0px;">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
@@ -117,7 +117,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('order.index')}}">
             <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Pemesanan</span>
+            <span>Pesanan</span>
         </a>
     </li>
 

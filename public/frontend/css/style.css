@@ -35,6 +35,16 @@ Version:1.0
 20. 404 Error CSS
 21. Footer CSS
 ========================================*/
+
+#accordionSidebar {
+    transition: margin 0.3s ease-in-out;
+}
+
+/* CSS untuk sidebar yang ditutup */
+.sidebar-collapsed {
+    margin-left: -250px; /* Sesuaikan dengan lebar sidebar Anda */
+}
+
 .color-plate {
     position: fixed;
     display: block;

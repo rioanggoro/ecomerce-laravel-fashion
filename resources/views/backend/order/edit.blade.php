@@ -4,7 +4,7 @@
 
 @section('main-content')
 <div class="card">
-  <h5 class="card-header">Order Edit</h5>
+  <h5 class="card-header">Edit Pesanan</h5>
   <div class="card-body">
     <form action="{{route('order.update',$order->id)}}" method="POST">
       @csrf
@@ -12,10 +12,10 @@
       <div class="form-group">
         <label for="status">Status :</label>
         <select name="status" id="" class="form-control">
-          <option value="new" {{($order->status=='delivered' || $order->status=="process" || $order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='new')? 'selected' : '')}}>New</option>
-          <option value="process" {{($order->status=='delivered'|| $order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='process')? 'selected' : '')}}>process</option>
-          <option value="delivered" {{($order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='delivered')? 'selected' : '')}}>Delivered</option>
-          <option value="cancel" {{($order->status=='delivered') ? 'disabled' : ''}}  {{(($order->status=='cancel')? 'selected' : '')}}>Cancel</option>
+          <option value="new" {{($order->status=='delivered' || $order->status=="process" || $order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='new')? 'selected' : '')}}>Baru</option>
+          <option value="process" {{($order->status=='delivered'|| $order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='process')? 'selected' : '')}}>Diproses</option>
+          <option value="delivered" {{($order->status=="cancel") ? 'disabled' : ''}}  {{(($order->status=='delivered')? 'selected' : '')}}>Dikirim</option>
+          <option value="cancel" {{($order->status=='delivered') ? 'disabled' : ''}}  {{(($order->status=='cancel')? 'selected' : '')}}>Dibatalkan</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary">Update</button>
