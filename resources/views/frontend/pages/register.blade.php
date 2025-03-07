@@ -3,80 +3,57 @@
 @section('title','E-SHOP || Register Page')
 
 @section('main-content')
-	<!-- Breadcrumbs -->
-    <div class="breadcrumbs">
+<div class="container">
+
+    <!-- Shop Register -->
+    <section class="shop register section">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="bread-inner">
-                        <ul class="bread-list">
-                            <li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="javascript:void(0);">Register</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
-            
-    <!-- Shop Login -->
-    <section class="shop login section">
-        <div class="container">
-            <div class="row"> 
+            <div class="row mt-5">
                 <div class="col-lg-6 offset-lg-3 col-12">
-                    <div class="login-form">
-                        <h2>Register</h2>
-                        <p>Please register in order to checkout more quickly</p>
+                    <div class="register-form">
+                        <h2 class="text-center">Register</h2>
+                        <p class="text-center">Mohon Register agar dapat checkout lebih cepat.</p>
                         <!-- Form -->
                         <form class="form" method="post" action="{{route('register.submit')}}">
                             @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Name<span>*</span></label>
-                                        <input type="text" name="name" placeholder="" required="required" value="{{old('name')}}">
-                                        @error('name')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Email<span>*</span></label>
-                                        <input type="text" name="email" placeholder="" required="required" value="{{old('email')}}">
-                                        @error('email')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Your Password<span>*</span></label>
-                                        <input type="password" name="password" placeholder="" required="required" value="{{old('password')}}">
-                                        @error('password')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label>Confirm Password<span>*</span></label>
-                                        <input type="password" name="password_confirmation" placeholder="" required="required" value="{{old('password_confirmation')}}">
-                                        @error('password_confirmation')
-                                            <span class="text-danger">{{$message}}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group login-btn">
-                                        <button class="btn" type="submit">Register</button>
-                                        <a href="{{route('login.form')}}" class="btn">Login</a>
-                                        OR
-                                        <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
-                                        <a href="{{route('login.redirect','github')}}" class="btn btn-github"><i class="ti-github"></i></a>
-                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a>
-                                    </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name" required="required" placeholder="masukkan nama anda..." value="{{old('name')}}">
+                                @error('name')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" required="required" placeholder="masukkan email anda..." value="{{old('email')}}">
+                                @error('email')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="password" name="password" required="required" placeholder="masukkan password anda..." value="{{old('password')}}">
+                                @error('password')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required="required" placeholder="konfirmasi password anda..." value="{{old('password_confirmation')}}">
+                                @error('password_confirmation')
+                                    <span class="text-danger">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="d-flex gap-2 align-items-center mb-3">
+                                <button class="btn btn-primary" type="submit">Register</button>
+                                <a href="{{route('login.form')}}" class="btn btn-secondary">Login</a>
+                            </div>
+                            <div class="text-center my-3">
+                                <p>OR</p>
+                                <div class="btn-group">
+                                    <a href="{{route('login.redirect', 'facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i> Facebook</a>
+                                    <a href="{{route('login.redirect', 'github')}}" class="btn btn-dark"><i class="ti-github"></i> GitHub</a>
+                                    <a href="{{route('login.redirect', 'google')}}" class="btn btn-danger"><i class="ti-google"></i> Google</a>
                                 </div>
                             </div>
                         </form>
@@ -86,33 +63,32 @@
             </div>
         </div>
     </section>
-    <!--/ End Login -->
+    <!--/ End Register -->
+</div>
 @endsection
 
 @push('styles')
 <style>
-    .shop.login .form .btn{
-        margin-right:0;
+    .btn-facebook {
+        background-color: #39579A;
+        color: white;
     }
-    .btn-facebook{
-        background:#39579A;
+    .btn-facebook:hover {
+        background-color: #073088 !important;
     }
-    .btn-facebook:hover{
-        background:#073088 !important;
+    .btn-dark {
+        background-color: #444444;
+        color: white;
     }
-    .btn-github{
-        background:#444444;
-        color:white;
+    .btn-dark:hover {
+        background-color: black !important;
     }
-    .btn-github:hover{
-        background:black !important;
+    .btn-danger {
+        background-color: #ea4335;
+        color: white;
     }
-    .btn-google{
-        background:#ea4335;
-        color:white;
-    }
-    .btn-google:hover{
-        background:rgb(243, 26, 26) !important;
+    .btn-danger:hover {
+        background-color: rgb(243, 26, 26) !important;
     }
 </style>
 @endpush

@@ -1,567 +1,349 @@
 @extends('frontend.layouts.master')
 
 @section('meta')
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name='copyright' content=''>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="keywords" content="online shop, purchase, cart, ecommerce site, best online shopping">
-	<meta name="description" content="{{$product_detail->summary}}">
-	<meta property="og:url" content="{{route('product-detail',$product_detail->slug)}}">
-	<meta property="og:type" content="article">
-	<meta property="og:title" content="{{$product_detail->title}}">
-	<meta property="og:image" content="{{$product_detail->photo}}">
-	<meta property="og:description" content="{{$product_detail->description}}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="online shop, purchase, cart, ecommerce site, best online shopping">
+    <meta name="description" content="{{$product_detail->summary}}">
+    <meta property="og:url" content="{{route('product-detail',$product_detail->slug)}}">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{$product_detail->title}}">
+    <meta property="og:image" content="{{$product_detail->photo}}">
+    <meta property="og:description" content="{{$product_detail->description}}">
 @endsection
+
 @section('title','E-SHOP || PRODUCT DETAIL')
+
 @section('main-content')
+    <div class="container mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('product-grids')}}">Produk</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
+    </div>
 
-		<!-- Breadcrumbs -->
-		<div class="breadcrumbs">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="bread-inner">
-							<ul class="bread-list">
-								<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="">Shop Details</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Breadcrumbs -->
-				
-		<!-- Shop Single -->
-		<section class="shop single section">
-					<div class="container">
-						<div class="row"> 
-							<div class="col-12">
-								<div class="row">
-									<div class="col-lg-6 col-12">
-										<!-- Product Slider -->
-										<div class="product-gallery">
-											<!-- Images slider -->
-											<div class="flexslider-thumbnails">
-												<ul class="slides">
-													@php 
-														$photo=explode(',',$product_detail->photo);
-													// dd($photo);
-													@endphp
-													@foreach($photo as $data)
-														<li data-thumb="{{$data}}" rel="adjustX:10, adjustY:">
-															<img src="{{$data}}" alt="{{$data}}">
-														</li>
-													@endforeach
-												</ul>
-											</div>
-											<!-- End Images slider -->
-										</div>
-										<!-- End Product slider -->
-									</div>
-									<div class="col-lg-6 col-12">
-										<div class="product-des">
-											<!-- Description -->
-											<div class="short">
-												<h4>{{$product_detail->title}}</h4>
-												<div class="rating-main">
-													<ul class="rating">
-														@php
-															$rate=ceil($product_detail->getReview->avg('rate'))
-														@endphp
-															@for($i=1; $i<=5; $i++)
-																@if($rate>=$i)
-																	<li><i class="fa fa-star"></i></li>
-																@else 
-																	<li><i class="fa fa-star-o"></i></li>
-																@endif
-															@endfor
-													</ul>
-													<a href="#" class="total-review">({{$product_detail['getReview']->count()}}) Review</a>
-                                                </div>
-                                                @php 
-                                                    $after_discount=($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
-                                                @endphp
-												<p class="price"><span class="discount">${{number_format($after_discount,2)}}</span><s>${{number_format($product_detail->price,2)}}</s> </p>
-												<p class="description">{!!($product_detail->summary)!!}</p>
-											</div>
-											<!--/ End Description -->
-											<!-- Color -->
-											{{-- <div class="color">
-												<h4>Available Options <span>Color</span></h4>
-												<ul>
-													<li><a href="#" class="one"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="two"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="three"><i class="ti-check"></i></a></li>
-													<li><a href="#" class="four"><i class="ti-check"></i></a></li>
-												</ul>
-											</div> --}}
-											<!--/ End Color -->
-											<!-- Size -->
-											@if($product_detail->size)
-												<div class="size mt-4">
-													<h4>Size</h4>
-													<ul>
-														@php 
-															$sizes=explode(',',$product_detail->size);
-															// dd($sizes);
-														@endphp
-														@foreach($sizes as $size)
-														<li><a href="#" class="one">{{$size}}</a></li>
-														@endforeach
-													</ul>
-												</div>
-											@endif
-											<!--/ End Size -->
-											<!-- Product Buy -->
-											<div class="product-buy">
-												<form action="{{route('single-add-to-cart')}}" method="POST">
-													@csrf 
-													<div class="quantity">
-														<h6>Quantity :</h6>
-														<!-- Input Order -->
-														<div class="input-group">
-															<div class="button minus">
-																<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-																	<i class="ti-minus"></i>
-																</button>
-															</div>
-															<input type="hidden" name="slug" value="{{$product_detail->slug}}">
-															<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1" id="quantity">
-															<div class="button plus">
-																<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-																	<i class="ti-plus"></i>
-																</button>
-															</div>
-														</div>
-													<!--/ End Input Order -->
-													</div>
-													<div class="add-to-cart mt-4">
-														<button type="submit" class="btn">Add to cart</button>
-														<a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn min"><i class="ti-heart"></i></a>
-													</div>
-												</form>
-
-												<p class="cat">Category :<a href="{{route('product-cat',$product_detail->cat_info['slug'])}}">{{$product_detail->cat_info['title']}}</a></p>
-												@if($product_detail->sub_cat_info)
-												<p class="cat mt-1">Sub Category :<a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}">{{$product_detail->sub_cat_info['title']}}</a></p>
-												@endif
-												<p class="availability">Stock : @if($product_detail->stock>0)<span class="badge badge-success">{{$product_detail->stock}}</span>@else <span class="badge badge-danger">{{$product_detail->stock}}</span>  @endif</p>
-											</div>
-											<!--/ End Product Buy -->
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-12">
-										<div class="product-info">
-											<div class="nav-main">
-												<!-- Tab Nav -->
-												<ul class="nav nav-tabs" id="myTab" role="tablist">
-													<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a></li>
-													<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews</a></li>
-												</ul>
-												<!--/ End Tab Nav -->
-											</div>
-											<div class="tab-content" id="myTabContent">
-												<!-- Description Tab -->
-												<div class="tab-pane fade show active" id="description" role="tabpanel">
-													<div class="tab-single">
-														<div class="row">
-															<div class="col-12">
-																<div class="single-des">
-																	<p>{!! ($product_detail->description) !!}</p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--/ End Description Tab -->
-												<!-- Reviews Tab -->
-												<div class="tab-pane fade" id="reviews" role="tabpanel">
-													<div class="tab-single review-panel">
-														<div class="row">
-															<div class="col-12">
-																
-																<!-- Review -->
-																<div class="comment-review">
-																	<div class="add-review">
-																		<h5>Add A Review</h5>
-																		<p>Your email address will not be published. Required fields are marked</p>
-																	</div>
-																	<h4>Your Rating <span class="text-danger">*</span></h4>
-																	<div class="review-inner">
-																			<!-- Form -->
-																@auth
-																<form class="form" method="post" action="{{route('review.store',$product_detail->slug)}}">
-                                                                    @csrf
-                                                                    <div class="row">
-                                                                        <div class="col-lg-12 col-12">
-                                                                            <div class="rating_box">
-                                                                                  <div class="star-rating">
-                                                                                    <div class="star-rating__wrap">
-                                                                                      <input class="star-rating__input" id="star-rating-5" type="radio" name="rate" value="5">
-                                                                                      <label class="star-rating__ico fa fa-star-o" for="star-rating-5" title="5 out of 5 stars"></label>
-                                                                                      <input class="star-rating__input" id="star-rating-4" type="radio" name="rate" value="4">
-                                                                                      <label class="star-rating__ico fa fa-star-o" for="star-rating-4" title="4 out of 5 stars"></label>
-                                                                                      <input class="star-rating__input" id="star-rating-3" type="radio" name="rate" value="3">
-                                                                                      <label class="star-rating__ico fa fa-star-o" for="star-rating-3" title="3 out of 5 stars"></label>
-                                                                                      <input class="star-rating__input" id="star-rating-2" type="radio" name="rate" value="2">
-                                                                                      <label class="star-rating__ico fa fa-star-o" for="star-rating-2" title="2 out of 5 stars"></label>
-                                                                                      <input class="star-rating__input" id="star-rating-1" type="radio" name="rate" value="1">
-																					  <label class="star-rating__ico fa fa-star-o" for="star-rating-1" title="1 out of 5 stars"></label>
-																					  @error('rate')
-																						<span class="text-danger">{{$message}}</span>
-																					  @enderror
-                                                                                    </div>
-                                                                                  </div>
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-lg-12 col-12">
-																			<div class="form-group">
-																				<label>Write a review</label>
-																				<textarea name="review" rows="6" placeholder="" ></textarea>
-																			</div>
-																		</div>
-																		<div class="col-lg-12 col-12">
-																			<div class="form-group button5">	
-																				<button type="submit" class="btn">Submit</button>
-																			</div>
-																		</div>
-																	</div>
-																</form>
-																@else 
-																<p class="text-center p-5">
-																	You need to <a href="{{route('login.form')}}" style="color:rgb(54, 54, 204)">Login</a> OR <a style="color:blue" href="{{route('register.form')}}">Register</a>
-
-																</p>
-																<!--/ End Form -->
-																@endauth
-																	</div>
-																</div>
-															
-																<div class="ratting-main">
-																	<div class="avg-ratting">
-																		{{-- @php 
-																			$rate=0;
-																			foreach($product_detail->rate as $key=>$rate){
-																				$rate +=$rate
-																			}
-																		@endphp --}}
-																		<h4>{{ceil($product_detail->getReview->avg('rate'))}} <span>(Overall)</span></h4>
-																		<span>Based on {{$product_detail->getReview->count()}} Comments</span>
-																	</div>
-																	@foreach($product_detail['getReview'] as $data)
-																	<!-- Single Rating -->
-																	<div class="single-rating">
-																		<div class="rating-author">
-																			@if($data->user_info['photo'])
-																			<img src="{{$data->user_info['photo']}}" alt="{{$data->user_info['photo']}}">
-																			@else 
-																			<img src="{{asset('backend/img/avatar.png')}}" alt="Profile.jpg">
-																			@endif
-																		</div>
-																		<div class="rating-des">
-																			<h6>{{$data->user_info['name']}}</h6>
-																			<div class="ratings">
-
-																				<ul class="rating">
-																					@for($i=1; $i<=5; $i++)
-																						@if($data->rate>=$i)
-																							<li><i class="fa fa-star"></i></li>
-																						@else 
-																							<li><i class="fa fa-star-o"></i></li>
-																						@endif
-																					@endfor
-																				</ul>
-																				<div class="rate-count">(<span>{{$data->rate}}</span>)</div>
-																			</div>
-																			<p>{{$data->review}}</p>
-																		</div>
-																	</div>
-																	<!--/ End Single Rating -->
-																	@endforeach
-																</div>
-																
-																<!--/ End Review -->
-																
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--/ End Reviews Tab -->
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-		</section>
-		<!--/ End Shop Single -->
-		
-		<!-- Start Most Popular -->
-	<div class="product-area most-popular related-product section">
-        <div class="container">
-            <div class="row">
-				<div class="col-12">
-					<div class="section-title">
-						<h2>Related Products</h2>
-					</div>
-				</div>
-            </div>
-            <div class="row">
-                {{-- {{$product_detail->rel_prods}} --}}
-                <div class="col-12">
-                    <div class="owl-carousel popular-slider">
-                        @foreach($product_detail->rel_prods as $data)
-                            @if($data->id !==$product_detail->id)
-                                <!-- Start Single Product -->
-                                <div class="single-product">
-                                    <div class="product-img">
-										<a href="{{route('product-detail',$data->slug)}}">
-											@php 
-												$photo=explode(',',$data->photo);
-											@endphp
-                                            <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            <span class="price-dec">{{$data->discount}} % Off</span>
-                                                                    {{-- <span class="out-of-stock">Hot</span> --}}
-                                        </a>
-                                        <div class="button-head">
-                                            <div class="product-action">
-                                                <a data-toggle="modal" data-target="#modelExample" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
-                                            </div>
-                                            <div class="product-action-2">
-                                                <a title="Add to cart" href="#">Add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product-content">
-                                        <h3><a href="{{route('product-detail',$data->slug)}}">{{$data->title}}</a></h3>
-                                        <div class="product-price">
-                                            @php 
-                                                $after_discount=($data->price-(($data->discount*$data->price)/100));
-                                            @endphp
-                                            <span class="old">${{number_format($data->price,2)}}</span>
-                                            <span>${{number_format($after_discount,2)}}</span>
-                                        </div>
-                                      
-                                    </div>
-                                </div>
-                                <!-- End Single Product -->
-                                	
+    <div class="container mb-5">
+        <div class="row align-items-start">
+            <!-- Product Description Column -->
+            <div class="col-md-3">
+                <h2>{{$product_detail->title}}</h2>
+                <div class="d-flex align-items-center mb-3">
+                    <div class="rating me-2">
+                        @php
+                            $rate = ceil($product_detail->getReview->avg('rate'))
+                        @endphp
+                        @for($i=1; $i<=5; $i++)
+                            @if($rate>=$i)
+                                <i class="fa fa-star text-warning"></i>
+                            @else
+                                <i class="fa fa-star-o text-warning"></i>
                             @endif
+                        @endfor
+                    </div>
+                </div>
+                <p>{!!($product_detail->summary)!!}</p>
+            </div>
+
+            <!-- Product Image Column -->
+            <div class="col-md-5">
+                <div class="row">
+                    @php
+                        $photo = explode(',', $product_detail->photo);
+                    @endphp
+                    <div class="carousel-thumbnails d-none d-md-flex flex-column gap-2 col-md-2 hidden-md">
+                        @foreach($photo as $key => $img)
+                            <img src="{{$img}}" alt="Thumbnail {{$key+1}}" class="img-thumbnail mb-2"
+                                data-bs-target="#productCarousel" data-bs-slide-to="{{$key}}"
+                                @if($key==0) class="active" @endif>
                         @endforeach
+                    </div>
+                    <div id="productCarousel" class="carousel slide col-md-10" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($photo as $key => $img)
+                                <div class="carousel-item @if($key==0) active @endif">
+                                    <img src="{{$img}}" class="d-block w-100" alt="Product {{$key+1}}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-	<!-- End Most Popular Area -->
-	
 
-  <!-- Modal -->
-  <div class="modal fade" id="modelExample" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-            </div>
-            <div class="modal-body">
-                <div class="row no-gutters">
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Product Slider -->
-                            <div class="product-gallery">
-                                <div class="quickview-slider-active">
-                                    <div class="single-slider">
-                                        <img src="images/modal1.png" alt="#">
-                                    </div>
-                                    <div class="single-slider">
-                                        <img src="images/modal2.png" alt="#">
-                                    </div>
-                                    <div class="single-slider">
-                                        <img src="images/modal3.png" alt="#">
-                                    </div>
-                                    <div class="single-slider">
-                                        <img src="images/modal4.png" alt="#">
-                                    </div>
-                                </div>
-                            </div>
-                        <!-- End Product slider -->
+            <!-- Product Details Column -->
+            <div class="col-md-4">
+                @php
+                    $after_discount = ($product_detail->price-(($product_detail->price*$product_detail->discount)/100));
+                @endphp
+                <h3 class="mb-2">Rp{{number_format($after_discount,2)}}</h3>
+                @if($product_detail->discount > 0)
+                    <p><s class="text-muted">Rp{{number_format($product_detail->price,2)}}</s>
+                       <span class="badge bg-danger">{{$product_detail->discount}}% OFF</span>
+                    </p>
+                @endif
+
+                @if($product_detail->size)
+                    <h5 class="mt-4">UKURAN</h5>
+                    <div class="d-flex flex-wrap gap-2 my-4">
+                        @php
+                            $sizes = explode(',', $product_detail->size);
+                        @endphp
+                        @foreach($sizes as $size)
+                            <div class="col-3 text-center border rounded p-2">{{$size}}</div>
+                        @endforeach
                     </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div class="quickview-content">
-                            <h2>Flared Shift Dress</h2>
-                            <div class="quickview-ratting-review">
-                                <div class="quickview-ratting-wrap">
-                                    <div class="quickview-ratting">
-                                        <i class="yellow fa fa-star"></i>
-                                        <i class="yellow fa fa-star"></i>
-                                        <i class="yellow fa fa-star"></i>
-                                        <i class="yellow fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                @endif
+
+                <form action="{{route('single-add-to-cart')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="slug" value="{{$product_detail->slug}}">
+
+                    <div class="mb-4">
+                        <h5>Quantity:</h5>
+                        <div class="input-group">
+                            <button type="button" class="btn btn-outline-secondary" id="decrement">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <input type="text" name="quant[1]" class="form-control text-center" value="1" id="quantity"
+                                   min="1" max="{{$product_detail->stock}}">
+                            <button type="button" class="btn btn-outline-secondary" id="increment">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h6>
+                            Kategori:
+                            <span class="fw-normal">
+                                <a href="{{route('product-cat',$product_detail->cat_info['slug'])}}" class="text-decoration-none">
+                                    {{$product_detail->cat_info['title']}}
+                                </a>
+                            </span>
+                        </h6>
+                        @if($product_detail->sub_cat_info)
+                            <h6>
+                                Sub Kategori:
+                                <span class="fw-normal">
+                                    <a href="{{route('product-sub-cat',[$product_detail->cat_info['slug'],$product_detail->sub_cat_info['slug']])}}" class="text-decoration-none">
+                                        {{$product_detail->sub_cat_info['title']}}
+                                    </a>
+                                </span>
+                            </h6>
+                        @endif
+                        <h6>
+                            Stock:
+                            @if($product_detail->stock > 0)
+                                <span class="badge bg-success">{{$product_detail->stock}}</span>
+                            @else
+                                <span class="badge bg-danger">Stok Habis</span>
+                            @endif
+                        </h6>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-dark">
+                            <i class="fa fa-shopping-cart"></i> Tambah ke Keranjang
+                        </button>
+                        <a href="{{route('add-to-wishlist',$product_detail->slug)}}" class="btn btn-outline-danger">
+                            <i class="fa fa-heart"></i> Tambah ke Favorit
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Product Description Tabs -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                                data-bs-target="#description" type="button" role="tab"
+                                aria-controls="description" aria-selected="true">Deskripsi</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
+                                data-bs-target="#reviews" type="button" role="tab"
+                                aria-controls="reviews" aria-selected="false">Ulasan</button>
+                    </li>
+                </ul>
+                <div class="tab-content p-4 border border-top-0 rounded-bottom" id="productTabsContent">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        {!! ($product_detail->description) !!}
+                    </div>
+                    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <!-- Reviews Summary -->
+                        <div class="mb-4">
+                            <h4>Ringkasan Rating</h4>
+                            <div class="d-flex align-items-center">
+                                <h2 class="me-3 mb-0">{{ceil($product_detail->getReview->avg('rate'))}}/5</h2>
+                                <div>
+                                    <div class="rating">
+                                        @for($i=1; $i<=5; $i++)
+                                            @if(ceil($product_detail->getReview->avg('rate'))>=$i)
+                                                <i class="fa fa-star text-warning"></i>
+                                            @else
+                                                <i class="fa fa-star-o text-warning"></i>
+                                            @endif
+                                        @endfor
                                     </div>
-                                    <a href="#"> (1 customer review)</a>
-                                </div>
-                                <div class="quickview-stock">
-                                    <span><i class="fa fa-check-circle-o"></i> in stock</span>
+                                    <p class="mb-0">Berdasarkan {{$product_detail->getReview->count()}} ulasan</p>
                                 </div>
                             </div>
-                            <h3>$29.00</h3>
-                            <div class="quickview-peragraph">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam.</p>
+                        </div>
+
+                        <!-- Review Form -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Tulis Ulasan</h5>
                             </div>
-                            <div class="size">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12">
-                                        <h5 class="title">Size</h5>
-                                        <select>
-                                            <option selected="selected">s</option>
-                                            <option>m</option>
-                                            <option>l</option>
-                                            <option>xl</option>
-                                        </select>
+                            <div class="card-body">
+                                @auth
+                                    <form action="{{route('review.store',$product_detail->slug)}}" method="post">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label class="form-label">Rating</label>
+                                            <div class="rating-box">
+                                                <div class="star-rating">
+                                                    <div class="star-rating__wrap">
+                                                        <input class="star-rating__input" id="star-rating-5" type="radio" name="rate" value="5">
+                                                        <label class="star-rating__ico fa fa-star-o" for="star-rating-5" title="5 out of 5 stars"></label>
+                                                        <input class="star-rating__input" id="star-rating-4" type="radio" name="rate" value="4">
+                                                        <label class="star-rating__ico fa fa-star-o" for="star-rating-4" title="4 out of 5 stars"></label>
+                                                        <input class="star-rating__input" id="star-rating-3" type="radio" name="rate" value="3">
+                                                        <label class="star-rating__ico fa fa-star-o" for="star-rating-3" title="3 out of 5 stars"></label>
+                                                        <input class="star-rating__input" id="star-rating-2" type="radio" name="rate" value="2">
+                                                        <label class="star-rating__ico fa fa-star-o" for="star-rating-2" title="2 out of 5 stars"></label>
+                                                        <input class="star-rating__input" id="star-rating-1" type="radio" name="rate" value="1">
+                                                        <label class="star-rating__ico fa fa-star-o" for="star-rating-1" title="1 out of 5 stars"></label>
+                                                    </div>
+                                                </div>
+                                                @error('rate')
+                                                    <span class="text-danger">{{$message}}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="review" class="form-label">Ulasan Anda</label>
+                                            <textarea class="form-control" id="review" name="review" rows="3" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-dark">Submit Ulasan</button>
+                                    </form>
+                                @else
+                                    <div class="text-center py-4">
+                                        <p>You need to <a href="{{route('login.form')}}" class="text-decoration-none">Login</a> or
+                                           <a href="{{route('register.form')}}" class="text-decoration-none">Register</a> to write a review</p>
                                     </div>
-                                    <div class="col-lg-6 col-12">
-                                        <h5 class="title">Color</h5>
-                                        <select>
-                                            <option selected="selected">orange</option>
-                                            <option>purple</option>
-                                            <option>black</option>
-                                            <option>pink</option>
-                                        </select>
+                                @endauth
+                            </div>
+                        </div>
+
+                        <!-- Customer Reviews -->
+                        <div class="customer-reviews">
+                            <h4 class="mb-4">Ulasan Customer</h4>
+                            @foreach($product_detail['getReview'] as $review)
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex mb-3">
+                                            <div class="flex-shrink-0">
+                                                @if($review->user_info['photo'])
+                                                    <img src="{{$review->user_info['photo']}}" alt="{{$review->user_info['name']}}"
+                                                         class="rounded-circle" width="50" height="50">
+                                                @else
+                                                    <img src="{{asset('backend/img/avatar.png')}}" alt="Profile"
+                                                         class="rounded-circle" width="50" height="50">
+                                                @endif
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h5 class="mb-1">{{$review->user_info['name']}}</h5>
+                                                <div class="rating">
+                                                    @for($i=1; $i<=5; $i++)
+                                                        @if($review->rate>=$i)
+                                                            <i class="fa fa-star text-warning"></i>
+                                                        @else
+                                                            <i class="fa fa-star-o text-warning"></i>
+                                                        @endif
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0">{{$review->review}}</p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="quantity">
-                                <!-- Input Order -->
-                                <div class="input-group">
-                                    <div class="button minus">
-                                        <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-                                            <i class="ti-minus"></i>
-                                        </button>
-									</div>
-                                    <input type="text" name="qty" class="input-number"  data-min="1" data-max="1000" value="1">
-                                    <div class="button plus">
-                                        <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-                                            <i class="ti-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--/ End Input Order -->
-                            </div>
-                            <div class="add-to-cart">
-                                <a href="#" class="btn">Add to cart</a>
-                                <a href="#" class="btn min"><i class="ti-heart"></i></a>
-                                <a href="#" class="btn min"><i class="fa fa-compress"></i></a>
-                            </div>
-                            <div class="default-social">
-                                <h4 class="share-now">Share:</h4>
-                                <ul>
-                                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
-                                    <li><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                </ul>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <h2>Rekomendasi Untuk Kamu</h2>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                @foreach($product_detail->rel_prods as $data)
+                    @if($data->id !== $product_detail->id)
+                        <div class="col">
+                            <div class="card text-center h-100">
+                                @php
+                                    $photo = explode(',', $data->photo);
+                                @endphp
+                                <a href="{{ route('product-detail', $data->slug) }}">
+                                    <img src="{{$photo[0]}}" class="card-img-top img-fluid" alt="{{$photo[0]}}">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a class="text-decoration-none text-dark" href="{{ route('product-detail', $data->slug) }}">{{$data->title}}</a>
+                                    </h5>
+                                    <p class="text-muted">
+                                        <span class="text-decoration-line-through">Rp{{ number_format($data->price, 2) }}</span>
+                                        <span class="fw-bold text-danger">Rp{{ number_format($data->price - (($data->discount * $data->price) / 100), 2) }}</span>
+                                    </p>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{route('add-to-wishlist',$data->slug)}}" class="btn btn-outline-danger"><i class="fa fa-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
     </div>
-</div>
-<!-- Modal end -->
+</section>
 
 @endsection
-@push('styles')
-	<style>
-		/* Rating */
-		.rating_box {
-		display: inline-flex;
-		}
 
-		.star-rating {
-		font-size: 0;
-		padding-left: 10px;
-		padding-right: 10px;
-		}
 
-		.star-rating__wrap {
-		display: inline-block;
-		font-size: 1rem;
-		}
-
-		.star-rating__wrap:after {
-		content: "";
-		display: table;
-		clear: both;
-		}
-
-		.star-rating__ico {
-		float: right;
-		padding-left: 2px;
-		cursor: pointer;
-		color: #F7941D;
-		font-size: 16px;
-		margin-top: 5px;
-		}
-
-		.star-rating__ico:last-child {
-		padding-left: 0;
-		}
-
-		.star-rating__input {
-		display: none;
-		}
-
-		.star-rating__ico:hover:before,
-		.star-rating__ico:hover ~ .star-rating__ico:before,
-		.star-rating__input:checked ~ .star-rating__ico:before {
-		content: "\F005";
-		}
-
-	</style>
-@endpush
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-    {{-- <script>
-        $('.cart').click(function(){
-            var quantity=$('#quantity').val();
-            var pro_id=$(this).data('id');
-            // alert(quantity);
-            $.ajax({
-                url:"{{route('add-to-cart')}}",
-                type:"POST",
-                data:{
-                    _token:"{{csrf_token()}}",
-                    quantity:quantity,
-                    pro_id:pro_id
-                },
-                success:function(response){
-                    console.log(response);
-					if(typeof(response)!='object'){
-						response=$.parseJSON(response);
-					}
-					if(response.status){
-						swal('success',response.msg,'success').then(function(){
-							document.location.href=document.location.href;
-						});
-					}
-					else{
-                        swal('error',response.msg,'error').then(function(){
-							document.location.href=document.location.href;
-						});
-                    }
-                }
-            })
+<script>
+        // script for add and minus
+        const decrement = document.getElementById('decrement');
+        const increment = document.getElementById('increment');
+        const quantity = document.getElementById('quantity');
+        decrement.addEventListener('click', function () {
+            if (quantity.value > 1) {
+                quantity.value--;
+            }
         });
-    </script> --}}
+        increment.addEventListener('click', function () {
+            quantity.value++;
+        });
 
+    </script>
 @endpush

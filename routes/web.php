@@ -59,8 +59,8 @@
 // Frontend Routes
     Route::get('/home', [FrontendController::class, 'index']);
     Route::get('/about-us', [FrontendController::class, 'aboutUs'])->name('about-us');
-    Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
-    Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
+    // Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+    // Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
     Route::get('product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
     Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
     Route::get('/product-cat/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
@@ -87,13 +87,14 @@
     Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');
     Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
+    Route::get('/product-grid-ajax', [FrontendController::class, 'productGridsAjax'])->name('product-grid-ajax');
     Route::get('/product-lists', [FrontendController::class, 'productLists'])->name('product-lists');
     Route::match(['get', 'post'], '/filter', [FrontendController::class, 'productFilter'])->name('shop.filter');
 // Order Track
     Route::get('/product/track', [OrderController::class, 'orderTrack'])->name('order.track');
     Route::post('product/track/order', [OrderController::class, 'productTrackOrder'])->name('product.track.order');
 // Blog
-    Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+    // Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
     Route::get('/blog-detail/{slug}', [FrontendController::class, 'blogDetail'])->name('blog.detail');
     Route::get('/blog/search', [FrontendController::class, 'blogSearch'])->name('blog.search');
     Route::post('/blog/filter', [FrontendController::class, 'blogFilter'])->name('blog.filter');

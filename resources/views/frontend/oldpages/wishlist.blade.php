@@ -2,118 +2,123 @@
 @section('title','Wishlist Page')
 @section('main-content')
 	<!-- Breadcrumbs -->
-    <div class="container mt-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Favorit</li>
-            </ol>
-        </nav>
-    </div>
-    <!-- End Breadcrumbs -->
-
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="{{('home')}}">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="javascript:void(0);">Wishlist</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+			
 	<!-- Shopping Cart -->
 	<div class="shopping-cart section">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<!-- Shopping Summery -->
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr class="main-hading">
-                                    {{-- <th>Produk</th> --}}
-                                    <th>Nama</th>
-                                    <th class="text-center">Total</th>
-                                    <th class="text-center">Tambah ke Keranjang</th>
-                                    <th class="text-center"><i class="fa fa-trash remove-icon"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if(Helper::getAllProductFromWishlist())
-                                    @foreach(Helper::getAllProductFromWishlist() as $key=>$wishlist)
-                                        <tr>
-                                            {{-- @php
-                                                $photo=explode(',',$wishlist->product['photo']);
-                                            @endphp
-                                            <td class="image" data-title="No"><img src="{{$photo[0]}}" class="img-fluid" style="max-height: 100px" alt="{{$photo[0]}}"></td> --}}
-                                            <td class="product-des" data-title="Description">
-                                                <p class="product-name"><a href="{{route('product-detail',$wishlist->product['slug'])}}">{{$wishlist->product['title']}}</a></p>
-                                                <p class="product-des">{!!($wishlist['summary']) !!}</p>
-                                            </td>
-                                            <td class="total-amount text-center" data-title="Total"><span>Rp{{$wishlist['amount']}}</span></td>
-                                            <td class="text-center"><a href="{{route('add-to-cart',$wishlist->product['slug'])}}" class='btn btn-primary text-white'><i class="fa fa-shopping-cart"></i></a></td>
-                                            <td class="text-center" data-title="Remove"><a href="{{route('wishlist-delete',$wishlist->id)}}"><i class="fa fa-trash text-danger"></i></a></td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td class="text-center">
-                                            There are no any wishlist available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
+					<table class="table shopping-summery">
+						<thead>
+							<tr class="main-hading">
+								<th>PRODUCT</th>
+								<th>NAME</th>
+								<th class="text-center">TOTAL</th> 
+								<th class="text-center">ADD TO CART</th> 
+								<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+							</tr>
+						</thead>
+						<tbody>
+							@if(Helper::getAllProductFromWishlist())
+								@foreach(Helper::getAllProductFromWishlist() as $key=>$wishlist)
+									<tr>
+										@php 
+											$photo=explode(',',$wishlist->product['photo']);
+										@endphp
+										<td class="image" data-title="No"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></td>
+										<td class="product-des" data-title="Description">
+											<p class="product-name"><a href="{{route('product-detail',$wishlist->product['slug'])}}">{{$wishlist->product['title']}}</a></p>
+											<p class="product-des">{!!($wishlist['summary']) !!}</p>
+										</td>
+										<td class="total-amount" data-title="Total"><span>${{$wishlist['amount']}}</span></td>
+										<td><a href="{{route('add-to-cart',$wishlist->product['slug'])}}" class='btn text-white'>Add To Cart</a></td>
+										<td class="action" data-title="Remove"><a href="{{route('wishlist-delete',$wishlist->id)}}"><i class="ti-trash remove-icon"></i></a></td>
+									</tr>
+								@endforeach
+							@else 
+								<tr>
+									<td class="text-center">
+										There are no any wishlist available. <a href="{{route('product-grids')}}" style="color:blue;">Continue shopping</a>
 
-                                        </td>
-                                    </tr>
-                                @endif
+									</td>
+								</tr>
+							@endif
 
 
-                            </tbody>
-                        </table>
-                    </div>
+						</tbody>
+					</table>
 					<!--/ End Shopping Summery -->
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--/ End Shopping Cart -->
-
-	<!-- Start Area Layanan Toko -->
-    <section class="shop-services section py-5">
-        <div class="container">
-            <div class="row gap-3 gap-lg-0">
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Layanan Tunggal -->
-                    <div class="single-service text-center p-4 border rounded shadow-sm">
-                        <i class="fas fa-shipping-fast mb-3"></i>
-                        <h4>Pengiriman Gratis</h4>
-                        <p>Pesanan di atas $100</p>
-                    </div>
-                    <!-- End Layanan Tunggal -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Layanan Tunggal -->
-                    <div class="single-service text-center p-4 border rounded shadow-sm">
-                        <i class="fas fa-undo-alt mb-3"></i>
-                        <h4>Pengembalian Gratis</h4>
-                        <p>Pengembalian dalam 30 hari</p>
-                    </div>
-                    <!-- End Layanan Tunggal -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Layanan Tunggal -->
-                    <div class="single-service text-center p-4 border rounded shadow-sm">
-                        <i class="fas fa-lock mb-3"></i>
-                        <h4>Pembayaran Aman</h4>
-                        <p>Pembayaran 100% aman</p>
-                    </div>
-                    <!-- End Layanan Tunggal -->
-                </div>
-                <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Layanan Tunggal -->
-                    <div class="single-service text-center p-4 border rounded shadow-sm">
-                        <i class="fas fa-tag mb-3"></i>
-                        <h4>Harga Terbaik</h4>
-                        <p>Harga yang dijamin</p>
-                    </div>
-                    <!-- End Layanan Tunggal -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Area Layanan Toko -->
-    @include('frontend.layouts.newsletter')
-
-
-
+			
+	<!-- Start Shop Services Area  -->
+	<section class="shop-services section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-rocket"></i>
+						<h4>Free shiping</h4>
+						<p>Orders over $100</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-reload"></i>
+						<h4>Free Return</h4>
+						<p>Within 30 days returns</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-lock"></i>
+						<h4>Sucure Payment</h4>
+						<p>100% secure payment</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+				<div class="col-lg-3 col-md-6 col-12">
+					<!-- Start Single Service -->
+					<div class="single-service">
+						<i class="ti-tag"></i>
+						<h4>Best Peice</h4>
+						<p>Guaranteed price</p>
+					</div>
+					<!-- End Single Service -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Shop Newsletter -->
+	
+	@include('frontend.layouts.newsletter')
+	
+	
+	
 	<!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -226,7 +231,7 @@
             </div>
         </div>
         <!-- Modal end -->
-
+	
 @endsection
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
