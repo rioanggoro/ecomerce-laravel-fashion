@@ -8,8 +8,8 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Comment Lists</h6>
+    <div class="card-header py-3 rounded-top">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Daftar Komentar</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,25 +18,14 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Author</th>
-              <th>Post Title</th>
-              <th>Message</th>
-              <th>Date</th>
+              <th>Penulis</th>
+              <th>Judul Postingan</th>
+              <th>Pesan</th>
+              <th>Tanggal</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Author</th>
-              <th>Post Title</th>
-              <th>Message</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </tfoot>
           <tbody>
             @foreach($comments as $comment)
                 <tr>
@@ -47,9 +36,9 @@
                     <td>{{$comment->created_at->format('M d D, Y g: i a')}}</td>
                     <td>
                         @if($comment->status=='active')
-                          <span class="badge badge-success">{{$comment->status}}</span>
+                          <span class="badge badge-success">Aktif</span>
                         @else
-                          <span class="badge badge-warning">{{$comment->status}}</span>
+                          <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
@@ -66,7 +55,7 @@
         </table>
         <span style="float:right">{{$comments->links()}}</span>
         @else
-          <h6 class="text-center">No post comments found!!!</h6>
+          <h6 class="text-center">Tidak Ada Komentar</h6>
         @endif
       </div>
     </div>
@@ -122,8 +111,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apa kamu yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -132,7 +121,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

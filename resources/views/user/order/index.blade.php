@@ -8,8 +8,8 @@
             @include('user.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Order Lists</h6>
+    <div class="card-header py-3 rounded-top">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Daftar Pesanan</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,29 +18,16 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Order No.</th>
-              <th>Name</th>
+              <th>No Pesanan.</th>
+              <th>Nama</th>
               <th>Email</th>
-              <th>Quantity</th>
+              <th>Qty</th>
               <th>Charge</th>
-              <th>Total Amount</th>
+              <th>Total Jumlah</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Order No.</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Quantity</th>
-              <th>Charge</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-              <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
             @foreach($orders as $order)
                 <tr>
@@ -49,17 +36,17 @@
                     <td>{{$order->first_name}} {{$order->last_name}}</td>
                     <td>{{$order->email}}</td>
                     <td>{{$order->quantity}}</td>
-                    <td>${{$order->shipping->price}}</td>
-                    <td>${{number_format($order->total_amount,2)}}</td>
+                    <td>Rp{{$order->shipping->price}}</td>
+                    <td>Rp{{number_format($order->total_amount,2)}}</td>
                     <td>
                         @if($order->status=='new')
-                          <span class="badge badge-primary">{{$order->status}}</span>
+                          <span class="badge badge-primary">Baru</span>
                         @elseif($order->status=='process')
-                          <span class="badge badge-warning">{{$order->status}}</span>
+                          <span class="badge badge-warning">Diproses</span>
                         @elseif($order->status=='delivered')
-                          <span class="badge badge-success">{{$order->status}}</span>
+                          <span class="badge badge-success">Dikirim</span>
                         @else
-                          <span class="badge badge-danger">{{$order->status}}</span>
+                          <span class="badge badge-danger">Dibatalkan</span>
                         @endif
                     </td>
                     <td>
@@ -76,7 +63,7 @@
         </table>
         <span style="float:right">{{$orders->links()}}</span>
         @else
-          <h6 class="text-center">No orders found!!! Please order some products</h6>
+          <h6 class="text-center">Belum Ada Pesanan, Silahkan Pesan Terlebih Dahulu</h6>
         @endif
       </div>
     </div>
@@ -132,8 +119,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apa kamu yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -142,7 +129,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

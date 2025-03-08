@@ -8,8 +8,8 @@
             @include('backend.layouts.notification')
          </div>
      </div>
-    <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary float-left">Review Lists</h6>
+    <div class="card-header py-3 rounded-top">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Daftar Ulasan</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -18,27 +18,15 @@
           <thead>
             <tr>
               <th>S.N.</th>
-              <th>Review By</th>
-              <th>Product Title</th>
-              <th>Review</th>
-              <th>Rate</th>
-              <th>Date</th>
+              <th>Diulas Oleh</th>
+              <th>Judul Produk</th>
+              <th>Ulasan</th>
+              <th>Rating</th>
+              <th>Tanggal</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Aksi</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>S.N.</th>
-              <th>Review By</th>
-              <th>Product Title</th>
-              <th>Review</th>
-              <th>Rate</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Action</th>
-              </tr>
-          </tfoot>
           <tbody>
             @foreach($reviews as $review)
                 <tr>
@@ -60,9 +48,9 @@
                     <td>{{$review->created_at->format('M d D, Y g: i a')}}</td>
                     <td>
                         @if($review->status=='active')
-                          <span class="badge badge-success">{{$review->status}}</span>
+                          <span class="badge badge-success">Aktif</span>
                         @else
-                          <span class="badge badge-warning">{{$review->status}}</span>
+                          <span class="badge badge-warning">Tidak Aktif</span>
                         @endif
                     </td>
                     <td>
@@ -79,7 +67,7 @@
         </table>
         <span style="float:right">{{$reviews->links()}}</span>
         @else
-          <h6 class="text-center">No reviews found!!!</h6>
+          <h6 class="text-center">Ulasan Belum Ada!!!</h6>
         @endif
       </div>
     </div>
@@ -135,8 +123,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Apa kamu yakin?",
+                    text: "Setelah dihapus, data tidak bisa dikembalikan!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -145,7 +133,7 @@
                     if (willDelete) {
                        form.submit();
                     } else {
-                        swal("Your data is safe!");
+                        swal("Data kamu aman!");
                     }
                 });
           })

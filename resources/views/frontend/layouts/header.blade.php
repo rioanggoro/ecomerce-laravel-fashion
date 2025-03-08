@@ -57,7 +57,7 @@
                 @if(Auth::user()->role=='admin')
                     <li><a class="dropdown-item" href="{{route('admin')}}"  target="_blank"><i class="fa-solid fa-user"></i> Dashboard</a></li>
                 @else
-                    {{-- <li><i class="ti-user"></i><a class="dropdown-item" href="{{route('user')}}"  target="_blank"><i class="fa-solid fa-user"></i> Dashboard</a></li> --}}
+                    <li><i class="ti-user"></i><a class="dropdown-item" href="{{route('user')}}"><i class="fa-solid fa-user"></i> Dashboard</a></li>
                 @endif
                     <li><a class="dropdown-item" href="{{route('user.logout')}}"><i class="fa-solid fa-power-off"></i> Logout</a></li>
                 @else

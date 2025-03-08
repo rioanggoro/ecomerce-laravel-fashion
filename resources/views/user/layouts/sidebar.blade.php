@@ -2,8 +2,8 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('user')}}">
-      <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-laugh-wink"></i>
+      <div class="sidebar-brand-icon">
+        <i class="fas fa-store"></i>
       </div>
       <div class="sidebar-brand-text mx-3">User</div>
     </a>
@@ -23,13 +23,13 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Shop
+            Toko
         </div>
     <!--Orders -->
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.order.index')}}">
             <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Orders</span>
+            <span>Pesanan</span>
         </a>
     </li>
 
@@ -37,22 +37,22 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.productreview.index')}}">
             <i class="fas fa-comments"></i>
-            <span>Reviews</span></a>
+            <span>Ulasan</span></a>
     </li>
-    
+
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Posts
+      Postingan
     </div>
     <!-- Comments -->
     <li class="nav-item">
       <a class="nav-link" href="{{route('user.post-comment.index')}}">
           <i class="fas fa-comments fa-chart-area"></i>
-          <span>Comments</span>
+          <span>Komentar</span>
       </a>
     </li>
     <!-- Sidebar Toggler (Sidebar) -->
