@@ -4,23 +4,6 @@
 
 @section('main-content')
 
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs py-3">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Toko</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
-
     <form action="{{ route('shop.filter') }}" method="POST">
         @csrf
         <section class="product-area shop-sidebar shop-list section py-5">
@@ -36,18 +19,22 @@
                                     @php
                                         $menu = App\Models\Category::getAllParentWithChild();
                                     @endphp
-                                    @if($menu)
-                                        @foreach($menu as $cat_info)
+                                    @if ($menu)
+                                        @foreach ($menu as $cat_info)
                                             <li class="fs-3">
-                                                @if($cat_info->child_cat->count() > 0)
-                                                    <a href="{{ route('product-cat', $cat_info->slug) }}" class="text-dark text-decoration-none">{{ $cat_info->title }}</a>
+                                                @if ($cat_info->child_cat->count() > 0)
+                                                    <a href="{{ route('product-cat', $cat_info->slug) }}"
+                                                        class="text-dark text-decoration-none">{{ $cat_info->title }}</a>
                                                     <ul class="list-unstyled ms-3">
-                                                        @foreach($cat_info->child_cat as $sub_menu)
-                                                            <li><a class="text-dark text-decoration-none" href="{{ route('product-sub-cat', [$cat_info->slug, $sub_menu->slug]) }}">{{ $sub_menu->title }}</a></li>
+                                                        @foreach ($cat_info->child_cat as $sub_menu)
+                                                            <li><a class="text-dark text-decoration-none"
+                                                                    href="{{ route('product-sub-cat', [$cat_info->slug, $sub_menu->slug]) }}">{{ $sub_menu->title }}</a>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 @else
-                                                    <a class="text-dark text-decoration-none" href="{{ route('product-cat', $cat_info->slug) }}">{{ $cat_info->title }}</a>
+                                                    <a class="text-dark text-decoration-none"
+                                                        href="{{ route('product-cat', $cat_info->slug) }}">{{ $cat_info->title }}</a>
                                                 @endif
                                             </li>
                                         @endforeach
@@ -59,26 +46,31 @@
                     </div>
                     <div class="col-lg-9 col-md-8 col-12">
                         <div class="row">
-                            @if(count($products))
-                                @foreach($products as $data)
+                            @if (count($products))
+                                @foreach ($products as $data)
                                     <div class="col-md-4 col-sm-6 product-item mb-4" data-category="{{ $data->cat_id }}">
                                         <div class="card h-100">
                                             @php
                                                 $photo = explode(',', $data->photo);
                                             @endphp
                                             <a href="{{ route('product-detail', $data->slug) }}">
-                                                <img src="{{ $photo[0] }}" class="card-img-top" alt="{{ $photo[0] }}">
+                                                <img src="{{ $photo[0] }}" class="card-img-top"
+                                                    alt="{{ $photo[0] }}">
                                             </a>
                                             <div class="card-body text-center">
                                                 <h5 class="card-title">
-                                                    <a href="{{ route('product-detail', $data->slug) }}" class="text-decoration-none text-dark">{{ $data->title }}</a>
+                                                    <a href="{{ route('product-detail', $data->slug) }}"
+                                                        class="text-decoration-none text-dark">{{ $data->title }}</a>
                                                 </h5>
                                                 <p class="text-muted">
-                                                    <span class="text-decoration-line-through">Rp{{ number_format($data->price, 2) }}</span>
-                                                    <span class="fw-bold text-danger">Rp{{ number_format($data->price - (($data->discount * $data->price) / 100), 2) }}</span>
+                                                    <span
+                                                        class="text-decoration-line-through">Rp{{ number_format($data->price, 2) }}</span>
+                                                    <span
+                                                        class="fw-bold text-danger">Rp{{ number_format($data->price - ($data->discount * $data->price) / 100, 2) }}</span>
                                                 </p>
                                                 <div class="btn-group" role="group">
-                                                    <a href="{{ route('add-to-wishlist', $data->slug) }}" class="btn btn-outline-danger"><i class="fa fa-heart"></i></a>
+                                                    <a href="{{ route('add-to-wishlist', $data->slug) }}"
+                                                        class="btn btn-outline-danger"><i class="fa fa-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
