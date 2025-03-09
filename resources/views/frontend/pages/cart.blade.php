@@ -172,7 +172,7 @@
                     <div class="single-service text-center p-4 border rounded shadow-sm">
                         <i class="fas fa-shipping-fast mb-3"></i>
                         <h4>Pengiriman Gratis</h4>
-                        <p>Pesanan di atas $100</p>
+                        <p>Pesanan di atas Rp 50.000</p>
                     </div>
                     <!-- End Layanan Tunggal -->
                 </div>
@@ -206,8 +206,6 @@
             </div>
         </div>
     </section>
-    <!-- End Area Layanan Toko -->
-    @include('frontend.layouts.newsletter')
 
 @endsection
 

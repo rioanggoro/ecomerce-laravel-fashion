@@ -112,8 +112,9 @@
                                 <h2 class="card-title fs-4 fw-bold mb-3">Total Keranjang</h2>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="fw-medium">Subtotal Keranjang</span>
-                                    <span class="fw-bold order_subtotal"
-                                        data-price="{{ Helper::totalCartPrice() }}">Rp{{ number_format(Helper::totalCartPrice(), 2) }}</span>
+                                    <span class="fw-bold order_subtotal" data-price="{{ Helper::totalCartPrice() }}">
+                                        Rp {{ number_format(Helper::totalCartPrice(), 0, ',', '.') }}
+                                    </span>
                                 </div>
 
                                 <div class="mb-3">
@@ -125,8 +126,10 @@
                                                     <option value="">Pilih Pengiriman</option>
                                                     @foreach (Helper::shipping() as $shipping)
                                                         <option value="{{ $shipping->id }}" class="shippingOption"
-                                                            data-price="{{ $shipping->price }}">{{ $shipping->type }}:
-                                                            ${{ $shipping->price }}</option>
+                                                            data-price="{{ $shipping->price }}">
+                                                            {{ $shipping->type }}: Rp
+                                                            {{ number_format($shipping->price, 0, ',', '.') }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -140,7 +143,9 @@
                                     <div class="d-flex justify-content-between mb-2">
                                         <span class="fw-medium">Kamu hemat</span>
                                         <span class="text-success coupon_price"
-                                            data-price="{{ session('coupon')['value'] }}">Rp{{ number_format(session('coupon')['value'], 2) }}</span>
+                                            data-price="{{ session('coupon')['value'] }}">
+                                            Rp {{ number_format(session('coupon')['value'], 0, ',', '.') }}
+                                        </span>
                                     </div>
                                 @endif
 
@@ -153,10 +158,12 @@
 
                                 <div class="d-flex justify-content-between border-top pt-3 mt-3">
                                     <span class="fw-bold fs-5">Total</span>
-                                    <span class="fw-bold fs-5"
-                                        id="order_total_price">Rp{{ number_format($total_amount, 2) }}</span>
+                                    <span class="fw-bold fs-5" id="order_total_price">
+                                        Rp {{ number_format($total_amount, 0, ',', '.') }}
+                                    </span>
                                 </div>
                             </div>
+
 
                             <div class="card-body border-top p-4">
                                 <h2 class="card-title fs-4 fw-bold mb-3">Metode Pembayaran</h2>
@@ -187,78 +194,49 @@
     </section>
     <!--/ End Checkout -->
 
-    <!-- Start Shop Services Section -->
-    <section class="shop-services py-5 bg-light">
+    <!-- Start Area Layanan Toko -->
+    <section class="shop-services section py-5">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-shipping-fast fs-1 text-secondary mb-3"></i>
-                            <h4 class="fs-5 fw-bold">Free Shipping</h4>
-                            <p class="text-muted mb-0">Orders over $100</p>
-                        </div>
+            <div class="row gap-3 gap-lg-0">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Layanan Tunggal -->
+                    <div class="single-service text-center p-4 border rounded shadow-sm">
+                        <i class="fas fa-shipping-fast mb-3"></i>
+                        <h4>Pengiriman Gratis</h4>
+                        <p>Pesanan di atas Rp 50.000</p>
                     </div>
+                    <!-- End Layanan Tunggal -->
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-undo-alt fs-1 text-secondary mb-3"></i>
-                            <h4 class="fs-5 fw-bold">Free Returns</h4>
-                            <p class="text-muted mb-0">Within 30 days</p>
-                        </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Layanan Tunggal -->
+                    <div class="single-service text-center p-4 border rounded shadow-sm">
+                        <i class="fas fa-undo-alt mb-3"></i>
+                        <h4>Pengembalian Gratis</h4>
+                        <p>Pengembalian dalam 30 hari</p>
                     </div>
+                    <!-- End Layanan Tunggal -->
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-lock fs-1 text-secondary mb-3"></i>
-                            <h4 class="fs-5 fw-bold">Secure Payment</h4>
-                            <p class="text-muted mb-0">100% secure payment</p>
-                        </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Layanan Tunggal -->
+                    <div class="single-service text-center p-4 border rounded shadow-sm">
+                        <i class="fas fa-lock mb-3"></i>
+                        <h4>Pembayaran Aman</h4>
+                        <p>Pembayaran 100% aman</p>
                     </div>
+                    <!-- End Layanan Tunggal -->
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center p-4">
-                            <i class="fas fa-tag fs-1 text-secondary mb-3"></i>
-                            <h4 class="fs-5 fw-bold">Best Price</h4>
-                            <p class="text-muted mb-0">Guaranteed price</p>
-                        </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Layanan Tunggal -->
+                    <div class="single-service text-center p-4 border rounded shadow-sm">
+                        <i class="fas fa-tag mb-3"></i>
+                        <h4>Harga Terbaik</h4>
+                        <p>Harga yang dijamin</p>
                     </div>
+                    <!-- End Layanan Tunggal -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Shop Services Section -->
-
-    <!-- Start Newsletter Section -->
-    <section class="newsletter-section py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-body p-4 text-center">
-                            <h4 class="fw-bold mb-2">Newsletter</h4>
-                            <p class="mb-4">Subscribe to our newsletter and get <span class="text-primary fw-bold">10%
-                                    discount</span> on your first purchase</p>
-                            <form action="{{ route('subscribe') }}" method="post" class="newsletter-form">
-                                @csrf
-                                <div class="input-group">
-                                    <input type="email" class="form-control" name="email"
-                                        placeholder="Your email address" required>
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fas fa-paper-plane me-1"></i> Subscribe
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Newsletter Section -->
 @endsection
 
 @push('scripts')
@@ -269,8 +247,29 @@
                 let cost = parseFloat($(this).find('option:selected').data('price')) || 0;
                 let subtotal = parseFloat($('.order_subtotal').data('price'));
                 let coupon = parseFloat($('.coupon_price').data('price')) || 0;
-                $('#order_total_price').text('$' + (subtotal + cost - coupon).toFixed(2));
+
+                // Hitung total
+                let total = subtotal + cost - coupon;
+
+                // Update total di tampilan
+                $('#order_total_price').text('Rp ' + number_format(total, 0, ',', '.'));
             });
         });
+
+        // Fungsi untuk format angka
+        function number_format(number, decimals, dec_point, thousands_sep) {
+            // Default values
+            decimals = decimals || 0;
+            dec_point = dec_point || '.';
+            thousands_sep = thousands_sep || ',';
+
+            number = parseFloat(number);
+            if (isNaN(number)) return '0';
+
+            // Format number
+            let parts = number.toFixed(decimals).split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+            return parts.join(dec_point);
+        }
     </script>
 @endpush

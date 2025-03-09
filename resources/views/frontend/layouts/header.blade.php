@@ -33,10 +33,10 @@
                             @else
                                 <li><a class="dropdown-item" href="{{ route('user') }}">Akun Saya</a></li>
                             @endif
-                            <li><a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('user.logout') }}">Keluar</a></li>
                         @else
                             <li><a class="dropdown-item" href="{{ route('login.form') }}">Masuk</a></li>
-                            <li><a class="dropdown-item" href="{{ route('register.form') }}">Register</a></li>
+                            <li><a class="dropdown-item" href="{{ route('register.form') }}">Daftar</a></li>
                         @endauth
                     </ul>
                 </li>
