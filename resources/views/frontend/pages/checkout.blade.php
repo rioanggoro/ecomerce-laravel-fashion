@@ -292,22 +292,10 @@
                         // Panggil pop-up Snap Midtrans
                         snap.pay(snapToken, {
                             onSuccess: function(result) {
+                                console.log("Pembayaran Sukses");
+                                
                                 // Handle success, redirect atau tampilkan pesan
-                                console.log(result);
-                                $.ajax({
-                                    url: "{{ route('cart.order.save') }}",
-                                    method: 'POST',
-                                    data: formData,
-                                    success: function(response) {
-                                        window.location.href = '/order/success';
-                                    },
-                                    error: function(xhr, status, error) {
-                                        // Handle error
-                                        console.log(xhr);
-                                        console.log(status);
-                                        console.log(error);
-                                    }
-                                })
+                                window.location.href = '{{ route('cartOrderSave') }}' + '?data=' + encodeURIComponent(response.encryptedData);
                             },
                             onPending: function(result) {
                                 // Handle pending status

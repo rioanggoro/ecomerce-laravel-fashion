@@ -83,8 +83,7 @@ Route::get('/wishlist', function () {
 Route::get('/wishlist/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
 Route::get('wishlist-delete/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 Route::post('cart/order', [OrderController::class, 'store'])->name('cart.order');
-Route::post('cart/order/save', [OrderController::class, 'orderSave'])->name('cart.order.save');
-Route::get('order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+Route::get('cart/order/save', [OrderController::class, 'orderSave'])->name('cartOrderSave');
 Route::get('order/pdf/{id}', [OrderController::class, 'pdf'])->name('order.pdf');
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 // Route::get('/user/chart',[AdminController::class, 'userPieChart'])->name('user.piechart');

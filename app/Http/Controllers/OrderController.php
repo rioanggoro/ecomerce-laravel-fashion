@@ -12,6 +12,9 @@ use Notification;
 use Helper;
 use Illuminate\Support\Str;
 use App\Notifications\StatusNotification;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Collection;
+
 
 class OrderController extends Controller
 {
@@ -72,10 +75,10 @@ class OrderController extends Controller
             ),  
         );
 
-        // Mendapatkan Snap Token
         try{
             $snapToken = \Midtrans\Snap::getSnapToken($params);
-        return response()->json(['snapToken' => $snapToken]);
+            $objectData = json_encode((object)$request->all());
+        return response()->json(['snapToken' => $snapToken, 'encryptedData' => Crypt::encrypt($objectData)]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -84,16 +87,10 @@ class OrderController extends Controller
     // save order after payment success
     public function orderSave(Request $request)
     {
-        $this->validate($request,[
-            'first_name'=>'string|required',
-            'last_name'=>'string|required',
-            'address1'=>'string|required',
-            'address2'=>'string|nullable',
-            'coupon'=>'nullable|numeric',
-            'phone'=>'numeric|required',
-            'post_code'=>'string|nullable',
-            'email'=>'string|required'
-        ]);
+        $encryptedData = $request->query('data');
+        $decryptedData = json_decode(Crypt::decrypt($encryptedData), false);
+        $data = collect($decryptedData);
+        
         
         if(empty(Cart::where('user_id',auth()->user()->id)->where('order_id',null)->first())){
             request()->session()->flash('error','Cart is Empty !');
@@ -102,10 +99,10 @@ class OrderController extends Controller
 
         try{   
             $order=new Order();
-            $order_data=$request->all();
+            $order_data=$data->all();
             $order_data['order_number']='ORD-'.strtoupper(Str::random(10));
             $order_data['user_id']=$request->user()->id;
-            $order_data['shipping_id']=$request->shipping;
+            $order_data['shipping_id']=$data['shipping'];
             $shipping=Shipping::where('id',$order_data['shipping_id'])->pluck('price');
             // return session('coupon')['value'];
             $order_data['sub_total']=Helper::totalCartPrice();
@@ -113,7 +110,7 @@ class OrderController extends Controller
             if(session('coupon')){
                 $order_data['coupon']=session('coupon')['value'];
             }
-            if($request->shipping){
+            if($data['shipping']){
                 if(session('coupon')){
                     $order_data['total_amount']=Helper::totalCartPrice()+$shipping[0]-session('coupon')['value'];
                 }
@@ -150,9 +147,12 @@ class OrderController extends Controller
             session()->forget('coupon');
             Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
             
-            return response()->json(['success' => true, 'message' => 'Order berhasil disimpan']);
+            request()->session()->flash('success','Your product successfully placed in order');
+            return redirect()->route('home');
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+            // dd($e->getMessage());
+            request()->session()->flash('dangger','Your product failed placed in order');
+            return redirect()->route('home');
         }
     }
 
