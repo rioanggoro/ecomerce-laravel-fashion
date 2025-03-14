@@ -29,7 +29,7 @@
             <td>{{$order->first_name}} {{$order->last_name}}</td>
             <td>{{$order->email}}</td>
             <td>{{$order->quantity}}</td>
-            <td>Rp{{$order->shipping->price}}</td>
+            <td>Rp{{ $order->shipping ? $order->shipping->price : 0 }}</td>
             <td>Rp{{number_format($order->total_amount,2)}}</td>
             <td>
                 @if($order->status=='new')
@@ -82,8 +82,8 @@
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
                         <td>Biaya Pengiriman</td>
-                        <td> : Rp{{$order->shipping->price}}</td>
-                    </tr>
+                        <td> : Rp{{ $order->shipping ? $order->shipping->price : 0 }}</td>
+                        </tr>
                     <tr>
                         <td>Total Jumlah</td>
                         <td> : Rp{{number_format($order->total_amount,2)}}</td>

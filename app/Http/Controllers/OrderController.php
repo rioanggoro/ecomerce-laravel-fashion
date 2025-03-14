@@ -57,8 +57,15 @@ class OrderController extends Controller
             'post_code'=>'string|nullable',
             'email'=>'string|required'
         ]);
-        // return $request->all();
+
         $grossAmount=Helper::totalCartPrice();
+
+        if ($request->shipping) {
+            $shipping = Shipping::find($request->shipping);
+            if ($shipping) {
+                $grossAmount += $shipping->price;
+            }
+        }
 
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false; // Ubah ke true untuk produksi
