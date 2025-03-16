@@ -265,8 +265,13 @@
                 let cost = parseFloat($(this).find('option:selected').data('price')) || 0;
                 let subtotal = parseFloat($('.order_subtotal').data('price'));
                 let coupon = parseFloat($('.coupon_price').data('price')) || 0;
-                $('#order_total_price').text('$' + (subtotal + cost - coupon).toFixed(2));
+                let total = subtotal + cost - coupon;
+
+                // Format dengan toLocaleString untuk pemisah ribuan koma dan desimal titik
+                $('#order_total_price').text('Rp' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             });
+
+
 
 
         });
