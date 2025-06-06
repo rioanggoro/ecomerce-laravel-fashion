@@ -23,10 +23,13 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
-                    <div class="about-img overlay">
-                        <img src="@foreach ($settings as $data) {{ $data->photo }} @endforeach"
-                            alt="@foreach ($settings as $data) {{ $data->photo }} @endforeach" class="img-fluid">
+                    <div class="col-lg-6 col-12">
+                        <div class="about-img overlay">
+                            <img src="https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Tentang Kami" class="img-fluid rounded shadow">
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

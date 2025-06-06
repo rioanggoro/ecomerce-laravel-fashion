@@ -88,6 +88,25 @@ class HomeController extends Controller
         // return $order;
         return view('user.order.show')->with('order',$order);
     }
+
+    public function completeOrder($id)
+{
+    $order = Order::where('id', $id)->where('user_id', auth()->id())->first();
+
+    if (!$order) {
+        return redirect()->back()->with('error', 'Pesanan tidak ditemukan.');
+    }
+
+    if ($order->status !== 'delivered') {
+        return redirect()->back()->with('error', 'Pesanan belum bisa diselesaikan.');
+    }
+
+    $order->status = 'completed';
+    $order->save();
+
+    return redirect()->back()->with('success', 'Pesanan berhasil diselesaikan.');
+}
+
     // Product Review
     public function productReviewIndex(){
         $reviews=ProductReview::getAllUserReview();

@@ -45,9 +45,12 @@
                                             <span class="badge badge-warning">Diproses</span>
                                         @elseif($order->status == 'delivered')
                                             <span class="badge badge-success">Dikirim</span>
+                                        @elseif($order->status == 'completed')
+                                            <span class="badge badge-info">Selesai</span>
                                         @else
                                             <span class="badge badge-danger">Dibatalkan</span>
                                         @endif
+
                                     </td>
                                     <td>
                                         <a href="{{ route('user.order.show', $order->id) }}"

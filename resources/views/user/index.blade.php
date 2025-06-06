@@ -127,6 +127,8 @@
                                                 <span class="badge badge-warning">Diproses</span>
                                             @elseif($order->status == 'delivered')
                                                 <span class="badge badge-success">Dikirim</span>
+                                            @elseif($order->status == 'completed')
+                                                <span class="badge badge-info">Selesai</span>
                                             @else
                                                 <span class="badge badge-danger">Dibatalkan</span>
                                             @endif
@@ -135,19 +137,19 @@
                                             <a href="{{ route('user.order.show', $order->id) }}"
                                                 class="btn btn-warning btn-sm float-left mr-1"
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
-                                                title="view" data-placement="bottom">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            {{-- <form method="POST" action="{{ route('user.order.delete', [$order->id]) }}">
-                                                @csrf
-                                                @method('delete')
-                                                <button class="btn btn-danger btn-sm dltBtn" data-id={{ $order->id }}
-                                                    style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form> --}}
+                                                title="Lihat Detail" data-placement="bottom"><i class="fas fa-eye"></i></a>
+
+                                            @if ($order->status == 'delivered')
+                                                <form method="POST" action="{{ route('user.order.complete', $order->id) }}"
+                                                    class="float-left mr-1">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success btn-sm"
+                                                        style="height:30px; width:auto; border-radius:20px; padding:0 10px;"
+                                                        title="Tandai Selesai">Selesai</button>
+                                                </form>
+                                            @endif
                                         </td>
+
                                     </tr>
                                 @endforeach
                             @else
