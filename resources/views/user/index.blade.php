@@ -138,7 +138,7 @@
                                                 title="view" data-placement="bottom">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <form method="POST" action="{{ route('user.order.delete', [$order->id]) }}">
+                                            {{-- <form method="POST" action="{{ route('user.order.delete', [$order->id]) }}">
                                                 @csrf
                                                 @method('delete')
                                                 <button class="btn btn-danger btn-sm dltBtn" data-id={{ $order->id }}
@@ -146,7 +146,7 @@
                                                     data-placement="bottom" title="Delete">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -297,17 +297,6 @@
                         }
                     }
                 });
-
-
-
-
-
-
-
-
-
-
-
             })
             .catch(function(error) {
                 //   vm.answer = 'Error! Could not reach the API. ' + error
